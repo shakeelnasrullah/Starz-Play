@@ -24,6 +24,9 @@ import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -37,11 +40,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.sha.playdata.BuildConfig
 import com.sha.playdata.data.models.Media
+import com.sha.playdata.language.LanguageHelper
+import com.sha.playdata.utils.Utils
 import com.sha.starzpaly.R
 import com.sha.starzpaly.components.EmptyResponseMessage
 import com.sha.starzpaly.components.EmptyScreenMessage
+import com.sha.starzpaly.components.LanguageDialog
 import com.sha.starzpaly.components.LoadingView
 import com.sha.starzpaly.components.SearchTextField
+import javax.inject.Inject
 
 @Composable
 fun MainScreen(
@@ -52,6 +59,18 @@ fun MainScreen(
 
     val activity = LocalContext.current as Activity
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val languageHelper = viewModel.languageHelper
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedLanguageIndex by remember { mutableStateOf(0) } // Track the selected language index
+
+    // Get the initial list of languages
+    val (initialSelectedIndex, languages) = languageHelper.getLanguageList(activity)
+
+    // Update the selected index with the latest selected language when the dialog is opened
+    if (showDialog) {
+        selectedLanguageIndex = initialSelectedIndex
+    }
+
 
     Column(
         modifier = Modifier
@@ -69,16 +88,28 @@ fun MainScreen(
                     .weight(0.9f), viewModel, activity
             )
             IconButton(
-                onClick = { /* Handle search action */ },
+                onClick = { showDialog = true },
                 modifier = Modifier
                     .weight(0.1f)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.search_icon),
+                    painter = painterResource(id = R.drawable.anguage_icon),
                     contentDescription = null
                 )
             }
+
+            LanguageDialog(
+                showDialog = showDialog,
+                onDismiss = { showDialog = false },
+                onLanguageSelected = { selectedLanguage ->
+                    // Update the selected language index based on the selected item
+                    selectedLanguageIndex = languages.indexOf(selectedLanguage)
+                },
+                languageHelper = languageHelper,
+                selectedLanguageIndex = selectedLanguageIndex
+            )
         }
+
 
         // Conditional rendering based on uiState
         when (uiState) {
@@ -162,15 +193,8 @@ fun ItemView(item: MediaTypeList, goToDetailScree: (Media) -> Unit) {
                 shape = RoundedCornerShape(8.dp),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
-                /*var imagePath = ""
-
-                if (media.profilePath != null) {
-                    imagePath = media.profilePath.toString()
-                } else {
-                    imagePath = media.posterPath.toString()
-                }*/
                 AsyncImage(
-                    model = BuildConfig.IMAGE_BASE_URL + if(media.posterPath == null)  media.profilePath else media.posterPath,
+                    model = BuildConfig.IMAGE_BASE_URL + if (media.posterPath == null) media.profilePath else media.posterPath,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
