@@ -109,13 +109,3 @@ fun VideoPlayer(url: String) {
         }
     }
 }
-
-// To force landscape mode, ensure you do it in the Activity/Fragment:
-// For example, in the Activity:
-/*override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    setContent {
-        // Your Composable content
-    }
-}*/

@@ -23,7 +23,7 @@ data class MediaTypeList(val mediaType : String, val mediaList : List<Media>)
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val useCase: SearchMediaUseCase,
-    private val languageHelper: LanguageHelper
+    val languageHelper: LanguageHelper
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<MainUiStates>(MainUiStates.Idle)
