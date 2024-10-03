@@ -28,7 +28,7 @@ fun EmptyScreenMessage() {
 }
 
 @Composable
-fun EmptyResponseMessage() {
+fun EmptyResponseMessage(isError : Boolean) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -36,9 +36,10 @@ fun EmptyResponseMessage() {
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
-            text = stringResource(id = R.string.empty_response_msg),
+            text = if(isError)stringResource(id = R.string.error_msg) else stringResource(id = R.string.empty_response_msg),
             textAlign = TextAlign.Center,
             color = Color.Gray
         )
     }
 }
+

@@ -1,11 +1,7 @@
 package com.sha.playdata.data.models
 
-
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "media")
 data class Media(
     @SerializedName("adult")
     val adult: Boolean,
@@ -17,7 +13,6 @@ data class Media(
     val gender: Int,
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
-    @PrimaryKey
     @SerializedName("id")
     val id: Int,
     @SerializedName("known_for")
