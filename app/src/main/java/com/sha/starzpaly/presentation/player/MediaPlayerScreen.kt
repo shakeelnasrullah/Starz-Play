@@ -1,5 +1,8 @@
 package com.sha.starzpaly.presentation.player
 
+import android.app.Activity
+import android.content.pm.ActivityInfo
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,17 +32,37 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 import com.sha.playdata.BuildConfig
 import com.sha.playdata.data.models.Media
+import com.sha.starzpaly.components.ComposableLifecycle
 import com.sha.starzpaly.components.PlayButton
 
 @Composable
 fun MediaPlayerScreen(modifier: Modifier = Modifier, media: Media) {
     var isPlaying by remember { mutableStateOf(false) }
+
+    val activity = LocalContext.current as Activity
+
+
+
+    ComposableLifecycle { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_CREATE -> {
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            }
+            Lifecycle.Event.ON_START -> {}
+            Lifecycle.Event.ON_RESUME -> {}
+            Lifecycle.Event.ON_PAUSE -> {}
+            Lifecycle.Event.ON_STOP -> {}
+            Lifecycle.Event.ON_DESTROY -> {}
+            Lifecycle.Event.ON_ANY -> {}
+        }
+    }
 
     Box(
         modifier = modifier

@@ -1,9 +1,16 @@
 package com.sha.starzpaly.presentation.detail
 
-import androidx.compose.foundation.Image
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -12,22 +19,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
 import coil.compose.AsyncImage
 import com.sha.playdata.BuildConfig
 import com.sha.playdata.data.models.Media
-import com.sha.starzpaly.R
+import com.sha.starzpaly.components.ComposableLifecycle
 import com.sha.starzpaly.components.DetailContent
 import com.sha.starzpaly.components.PlayButton
 
-
 @Composable
-fun DetailScreen(modifier: Modifier, media: Media, goToPlayer : (Media) -> Unit) {
-//fun DetailScreen(modifier: Modifier, goToPlayer: (Media) -> Unit) {
+fun DetailScreen(modifier: Modifier, media: Media, goToPlayer: (Media) -> Unit) {
+
+    val activity = LocalContext.current as Activity
+
+    ComposableLifecycle { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_CREATE -> {}
+            Lifecycle.Event.ON_START -> {}
+            Lifecycle.Event.ON_RESUME -> {
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            }
+            Lifecycle.Event.ON_PAUSE -> {}
+            Lifecycle.Event.ON_STOP -> {}
+            Lifecycle.Event.ON_DESTROY -> {}
+            Lifecycle.Event.ON_ANY -> {}
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +72,7 @@ fun DetailScreen(modifier: Modifier, media: Media, goToPlayer : (Media) -> Unit)
             ) {
 
                 AsyncImage(
-                    model = BuildConfig.IMAGE_BASE_URL + if(media.posterPath == null)  media.profilePath else media.posterPath,
+                    model = BuildConfig.IMAGE_BASE_URL + if (media.posterPath == null) media.profilePath else media.posterPath,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -61,14 +82,16 @@ fun DetailScreen(modifier: Modifier, media: Media, goToPlayer : (Media) -> Unit)
 
 
 
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.6f)
-                .fillMaxHeight()
-                .padding(top = 16.dp, bottom = 16.dp, end = 16.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.6f)
+                    .fillMaxHeight()
+                    .padding(top = 16.dp, bottom = 16.dp, end = 16.dp)
+            ) {
 
                 DetailContent(media = media)
-               
+
                 Spacer(modifier = Modifier.weight(1f))
                 PlayButton(onClick = { goToPlayer.invoke(media) }, text = "Play")
             }
@@ -81,7 +104,11 @@ fun DetailScreen(modifier: Modifier, media: Media, goToPlayer : (Media) -> Unit)
                 .background(Color.White)
         ) {
 
-            Text(modifier = Modifier.padding(16.dp), color = Color.Gray, text = if(media.overview == null) "Details are not found" else media.overview!!)
+            Text(
+                modifier = Modifier.padding(16.dp),
+                color = Color.Gray,
+                text = if (media.overview == null) "Details are not found" else media.overview!!
+            )
         }
     }
 
@@ -90,5 +117,5 @@ fun DetailScreen(modifier: Modifier, media: Media, goToPlayer : (Media) -> Unit)
 @Preview(showBackground = true)
 @Composable
 fun PreviewDetailScreen() {
-   // DetailScreen(modifier = Modifier.fillMaxSize(), goToPlayer = {})
+    // DetailScreen(modifier = Modifier.fillMaxSize(), goToPlayer = {})
 }
