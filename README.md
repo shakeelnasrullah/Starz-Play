@@ -1,0 +1,11 @@
+A Media app which uses
+- The Movie DB's API to fetch the media
+- JetPack Compose
+- MVVM with Clean Architecture
+- Kotlin, Coroutines, Flow
+- Retrofit + okhttp
+- Coil for Image Loading
+- Hilt for Dependency Injection
+- Media 3 Exoplayer
+- Gson
+- Navigation 
