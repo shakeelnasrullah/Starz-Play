@@ -1,6 +1,5 @@
 package com.sha.playdata.data.models
 
-
 import com.google.gson.annotations.SerializedName
 
 data class KnownFor(

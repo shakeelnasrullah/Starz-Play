@@ -2,5 +2,6 @@
     <string name="app_name">StarzPlay</string>
     <string name="language_dialog_title">Select Language</string>
     <string name="empty_screen_msg">Please type something to search in the above field</string>
-    <string name="empty_response_msg">Ooops ! Record not found. Please try other keywords</string>
+    <string name="empty_response_msg">Ooops! Record not found. Please try other keywords</string>
+    <string name="error_msg">Ooops! Something Went wrong. Please try later</string>
 </resources>

@@ -131,11 +131,11 @@ fun MainScreen(
             }
 
             is MainUiStates.ErrorState -> {
-                // Handle error state
+                EmptyResponseMessage(true)
             }
 
             is MainUiStates.Empty -> {
-                EmptyResponseMessage()
+                EmptyResponseMessage(false)
             }
         }
     }

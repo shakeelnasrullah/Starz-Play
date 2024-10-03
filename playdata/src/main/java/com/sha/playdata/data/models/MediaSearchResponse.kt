@@ -1,14 +1,8 @@
 package com.sha.playdata.data.models
 
-
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
-@Entity(tableName = "response")
 data class MediaSearchResponse(
-    @PrimaryKey(autoGenerate = false)
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
