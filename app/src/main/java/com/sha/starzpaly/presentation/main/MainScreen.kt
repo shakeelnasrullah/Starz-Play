@@ -40,15 +40,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.sha.playdata.BuildConfig
 import com.sha.playdata.data.models.Media
-import com.sha.playdata.language.LanguageHelper
-import com.sha.playdata.utils.Utils
 import com.sha.starzpaly.R
 import com.sha.starzpaly.components.EmptyResponseMessage
 import com.sha.starzpaly.components.EmptyScreenMessage
 import com.sha.starzpaly.components.LanguageDialog
 import com.sha.starzpaly.components.LoadingView
 import com.sha.starzpaly.components.SearchTextField
-import javax.inject.Inject
 
 @Composable
 fun MainScreen(

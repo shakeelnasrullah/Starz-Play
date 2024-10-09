@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sha.playdata.data.models.Media
@@ -42,14 +43,17 @@ fun DetailContent(media: Media) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 5.dp),
-        fontWeight = FontWeight.Bold, color = Color.Black, fontSize = 18.sp,
+        overflow = TextOverflow.Ellipsis,
+        fontWeight = FontWeight.Bold, color = Color.White, fontSize = 18.sp,
     )
     Text(
         text = mediaOriginalName, modifier = Modifier
             .fillMaxWidth()
             .padding(top = 5.dp),
-        fontWeight = FontWeight.SemiBold, color = Color.Black,
-        fontSize = 16.sp, maxLines = 2
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        fontWeight = FontWeight.SemiBold, color = Color.White,
+        fontSize = 14.sp,
     )
     Text(
         text = mediaDate,
@@ -57,7 +61,7 @@ fun DetailContent(media: Media) {
             .fillMaxWidth()
             .padding(top = 5.dp),
         fontWeight = FontWeight.Normal,
-        color = Color.Black, fontSize = 16.sp,
+        color = Color.White, fontSize = 13.sp,
     )
     Text(
         text = mediaCategory,
@@ -65,7 +69,7 @@ fun DetailContent(media: Media) {
             .fillMaxWidth()
             .padding(top = 5.dp),
         fontWeight = FontWeight.Normal,
-        color = Color.Black, fontSize = 16.sp,
+        color = Color.White, fontSize = 13.sp,
     )
 
 
